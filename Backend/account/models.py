@@ -50,7 +50,7 @@ class Profile(models.Model):
         """
         Save the object to the database.
 
-        This method overrides the save method of the parent class and adds functionality to automatically assign a profile ID if it is not already set. 
+        This method overrides the save method of the parent class and adds functionality to automatically assign a profile ID if it is not already set.
 
         Parameters:
             *args: Additional positional arguments that are passed to the parent save method.
@@ -83,7 +83,7 @@ class Profile(models.Model):
         """
         if full_name != "":
             self.full_name = full_name
-            super(Profile, self).save()
+            super().save()
             return True
         else:
             return False
@@ -100,7 +100,7 @@ class Profile(models.Model):
         """
         if bio != "":
             self.bio = bio
-            super(Profile, self).save()
+            super().save()
             return True
         else:
             return False
@@ -117,7 +117,7 @@ class Profile(models.Model):
         """
         if avatar != None:
             self.avatar = avatar
-            super(Profile, self).save()
+            super().save()
             return True
         else:
             return False
@@ -135,9 +135,7 @@ class User(models.Model):
     email = models.EmailField(unique=True)
     password = models.CharField(max_length=255)
     date_joined = models.DateTimeField(auto_now_add=True, blank=True)
-    profile = models.ForeignKey(
-        Profile, to_field="profile_id", on_delete=models.CASCADE
-    )
+    profile = models.ForeignKey(Profile, to_field="profile_id", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.username

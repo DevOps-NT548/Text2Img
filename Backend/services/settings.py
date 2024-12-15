@@ -30,11 +30,11 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DATABASES = {
     "default": {
         "ENGINE": os.environ.get("DATABASE_ENGINE"),  # PostgreSQL engine
-        "NAME": os.environ.get("DATABASE_NAME"),      # Database name
-        "USER": os.environ.get("DATABASE_USER"),      # Database user
+        "NAME": os.environ.get("DATABASE_NAME"),  # Database name
+        "USER": os.environ.get("DATABASE_USER"),  # Database user
         "PASSWORD": os.environ.get("DATABASE_PASSWORD"),  # Database password
-        "HOST": os.environ.get("DATABASE_HOST"),      # Database host (IP)
-        "PORT": os.environ.get("DATABASE_PORT"),      # Database port
+        "HOST": os.environ.get("DATABASE_HOST"),  # Database host (IP)
+        "PORT": os.environ.get("DATABASE_PORT"),  # Database port
     }
 }
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -54,7 +54,7 @@ ALLOWED_HOSTS = ["*"]
 # for instant deploying the website using ngrok platform
 CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app", "http://127.0.0.1", "http://0.0.0.0"]
 
-DJANGO_ALLOWED_HOSTS='localhost 127.0.0.1 [::1] 0.0.0.0'
+DJANGO_ALLOWED_HOSTS = 'localhost 127.0.0.1 [::1] 0.0.0.0'
 # Application definition
 
 INSTALLED_APPS = [
@@ -109,9 +109,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = "services.wsgi.application"
-
-
-
 
 
 # Password validation

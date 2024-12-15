@@ -34,6 +34,7 @@ except Exception as e:
     # Handle the error with additional context
     print(f"Failed to access the bucket: {e}")
 
+
 def save_uploaded_file(uploaded_file_base64: str, file_name: str) -> str:
     """
     Saves a base64-encoded image file to a Google Cloud Storage bucket.
@@ -52,19 +53,21 @@ def save_uploaded_file(uploaded_file_base64: str, file_name: str) -> str:
     """
     # Validate file extension
     try:
-        _, uploaded_file_base64 = uploaded_file_base64 .split(",", 1)
+        _, uploaded_file_base64 = uploaded_file_base64.split(",", 1)
         print(uploaded_file_base64[0:100])
         file_data = base64.b64decode(uploaded_file_base64)
         with Image.open(BytesIO(file_data)) as img:
             img.verify()
-            file_extension = img.format.lower() 
+            file_extension = img.format.lower()
             print(file_extension)
     except Exception as e:
         raise ValueError("The provided base64 string does not represent a valid image.") from e
 
     # Construct the full destination path
     sanitized_file_name = re.sub(r'[^a-zA-Z0-9_-]', '', file_name)
-    file_path_in_bucket = os.path.join(default_path, f"{sanitized_file_name}.{file_extension.lower()}")
+    file_path_in_bucket = os.path.join(
+        default_path, f"{sanitized_file_name}.{file_extension.lower()}"
+    )
 
     try:
         # Create a blob and upload the file data
@@ -74,6 +77,7 @@ def save_uploaded_file(uploaded_file_base64: str, file_name: str) -> str:
         raise Exception(f"Failed to upload the file to the bucket: {e}")
 
     return file_path_in_bucket
+
 
 class Register(APIView):
     def post(self, request, *args, **kwargs):
@@ -189,12 +193,12 @@ class Logout(APIView):
     def post(self, request, *args, **kwargs):
         """
         Handles the POST request to log out a user.
-        
+
         Parameters:
             request (Request): The HTTP request object.
             args (list): Positional arguments passed to the function.
             kwargs (dict): Keyword arguments passed to the function.
-        
+
         Returns:
             Response: The HTTP response object containing the result of the logout operation.
         """
@@ -251,6 +255,7 @@ class GetUserData(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
+
 class UpdateProfile(APIView):
     def post(self, request, *args, **kwargs):
         """
@@ -282,7 +287,7 @@ class UpdateProfile(APIView):
 
             response_data["full_name"] = full_name
             response_data["bio"] = bio
-            
+
             print(response_data)
 
             return Response(
