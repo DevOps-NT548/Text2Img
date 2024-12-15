@@ -30,13 +30,13 @@ const Profile = () => {
     const formData = new FormData();
     formData.append("full_name", userData.full_name);
     formData.append("bio", userData.bio);
-  
+
     // Convert base64 string to Blob
     console.log(avatarPreview)
     const base64Response = await fetch(avatarPreview);
     const blob = await base64Response.blob();
-    formData.append("avatar", blob); 
-  
+    formData.append("avatar", blob);
+
     fetch("/profile/api", {
       method: 'PUT',
       body: formData

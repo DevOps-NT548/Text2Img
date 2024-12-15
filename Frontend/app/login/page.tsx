@@ -39,7 +39,7 @@ const Login = () => {
                     <div className="w-full text-center">
                         <button className="bg-sky-600 w-1/2 mt-4" onClick={() => loginUser()}>Sign in</button>
                     </div>
-                    
+
                 </div>
                 <p className="text-center">Don&apos;t have an account? <Link href="/register" className="text-sky-600 font-bold hover:underline">Register!</Link></p>
             </main>
