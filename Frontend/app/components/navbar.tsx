@@ -37,7 +37,7 @@ export default function Navbar() {
                 </>}
             </ul>
             {!loggedIn && <p className="p-4"><b>Pro tip:</b> You must sign in to use our app</p>}
-            
+
         </nav>
     )
 }

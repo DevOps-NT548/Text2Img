@@ -70,7 +70,7 @@ export default function Home() {
                             onChange={(e) => setPrompt(e.target.value)}
                         />
                         <div className="flex items-center gap-2 mt-2">
-                            <button 
+                            <button
                                 className="bg-sky-400 text-white px-4 py-2 rounded hover:bg-sky-500"
                                 onClick={submitPrompt}
                             >
@@ -88,10 +88,10 @@ export default function Home() {
                         {imageSrc && (
                             <div className="mt-4">
                                 <h3 className="text-lg font-medium">Generated Image:</h3>
-                                <img 
-                                    src={imageSrc} 
-                                    alt="Generated Output" 
-                                    className="mt-2 w-full max-w-md rounded shadow-md border border-gray-300" 
+                                <img
+                                    src={imageSrc}
+                                    alt="Generated Output"
+                                    className="mt-2 w-full max-w-md rounded shadow-md border border-gray-300"
                                 />
                             </div>
                         )}
