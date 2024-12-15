@@ -106,10 +106,8 @@ ipython_config.py
 #pdm.lock
 #   pdm stores project-wide configurations in .pdm.toml, but it is recommended to not include it
 #   in version control.
-#   https://pdm.fming.dev/latest/usage/project/#working-with-version-control
+#   https://pdm.fming.dev/#use-with-ide
 .pdm.toml
-.pdm-python
-.pdm-build/
 
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow and github.com/pdm-project/pdm
 __pypackages__/
@@ -161,16 +159,28 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
+# file
+ngrok.exe
+
+*firebase-adminsdk*
+
+database/
+.env.db
+migrations/
+ngrok.yml
+*.pth
+
+PDFs/
+Avatars/
+
+.vscode/
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
 /node_modules
 /.pnp
 .pnp.js
-/vscode
-/.vscode
-/idea
-/.idea
-/.sass-cache
 
 # testing
 /coverage
@@ -178,16 +188,13 @@ cython_debug/
 # next.js
 /.next/
 /out/
-tsconfig.tsbuildinfo
 
 # production
-/dist
 /build
 
 # misc
 .DS_Store
 *.pem
-*.code-workspace
 
 # debug
 npm-debug.log*
@@ -195,14 +202,11 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
+.env*.local
 
 # vercel
 .vercel
 
-# next version
-/apps
-/packages
+# typescript
+*.tsbuildinfo
+next-env.d.ts
