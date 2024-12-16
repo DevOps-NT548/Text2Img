@@ -1,0 +1,34 @@
+replicaCount: 2
+
+image:
+  repository: kevvn/txt2img
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 30000
+
+env:
+  CREDENTIAL_JSON_FILE_NAME: /app/namsee_key.json
+  STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME}
+  SECRET_KEY: ${SECRET_KEY}
+  DATABASE_ENGINE: ${DATABASE_ENGINE}
+  DATABASE_NAME: ${DATABASE_NAME}
+  DATABASE_USER: ${DATABASE_USER} 
+  DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+  DATABASE_HOST: ${DATABASE_HOST}
+  DATABASE_PORT: ${DATABASE_PORT}
+
+volumes:
+  - name: credential-json
+    mountPath: /app/namsee_key.json
+    subPath: namsee_key.json
+    configMap:
+      name: namsee-key-config
+
+# configMap:
+#   name: namsee-key-config
+#   data:
+#     namsee_key.json
+      

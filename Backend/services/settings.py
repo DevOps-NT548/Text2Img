@@ -26,20 +26,23 @@ load_dotenv()
 #     }
 # }
 
-SECRET_KEY = os.getenv("SECRET_KEY")
-DATABASES = {
-    "default": {
-        "ENGINE": os.environ.get("DATABASE_ENGINE"),  # PostgreSQL engine
-        "NAME": os.environ.get("DATABASE_NAME"),  # Database name
-        "USER": os.environ.get("DATABASE_USER"),  # Database user
-        "PASSWORD": os.environ.get("DATABASE_PASSWORD"),  # Database password
-        "HOST": os.environ.get("DATABASE_HOST"),  # Database host (IP)
-        "PORT": os.environ.get("DATABASE_PORT"),  # Database port
-    }
-}
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRET_KEY = os.getenv("SECRET_KEY")
+
+DATABASES = {
+    "default": {
+        "ENGINE": os.getenv("DATABASE_ENGINE"),
+        "NAME": os.getenv("DATABASE_NAME"),
+        "USER": os.getenv("DATABASE_USER"),
+        "PASSWORD": os.getenv("DATABASE_PASSWORD"),
+        "HOST": os.getenv("DATABASE_HOST"),
+        "PORT": os.getenv("DATABASE_PORT"),
+    }
+}
+
+CREDENTIAL_JSON = os.getenv("CREDENTIAL_JSON_FILE_NAME")
+STORAGE_BUCKET = os.getenv("STORAGE_BUCKET_NAME")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/

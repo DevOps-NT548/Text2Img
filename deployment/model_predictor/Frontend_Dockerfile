@@ -1,0 +1,18 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY ../../Frontend/package*.json ./
+
+# Install dependencies
+RUN npm install
+
+# Copy app files
+COPY ../../Frontend/ ./
+
+# Expose port
+EXPOSE 3000
+
+# Start app
+CMD ["npm", "run", "dev"]

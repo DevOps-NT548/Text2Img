@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-backend
+  labels:
+    app: {{ .Release.Name }}-backend
+  namespace: model-serving
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-backend
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-backend
+    spec:
+      containers:
+        - name: {{ .Release.Name }}-backend
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: 30000
+          env:
+            - name: CREDENTIAL_JSON_FILE_NAME
+              value: {{ .Values.env.CREDENTIAL_JSON_FILE_NAME }}
+            - name: STORAGE_BUCKET_NAME
+              value: {{ .Values.env.STORAGE_BUCKET_NAME }}
+            - name: SECRET_KEY
+              value: {{ .Values.env.SECRET_KEY }}
+            - name: DATABASE_ENGINE
+              value: {{ .Values.env.DATABASE_ENGINE }}
+            - name: DATABASE_NAME
+              value: {{ .Values.env.DATABASE_NAME }}
+            - name: DATABASE_USER
+              value: {{ .Values.env.DATABASE_USER }}
+            - name: DATABASE_PASSWORD
+              value: {{ .Values.env.DATABASE_PASSWORD }}
+            - name: DATABASE_HOST
+              value: {{ .Values.env.DATABASE_HOST }}
+            - name: DATABASE_PORT
+              value: {{ .Values.env.DATABASE_PORT }}
+          volumeMounts:
+            - name: credential-json
+              mountPath: /app/namsee_key.json
+              subPath: namsee_key.json
+      volumes:
+        - name: credential-json
+          configMap:
+            name: namsee-key-config
+
+
