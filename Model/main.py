@@ -2,6 +2,7 @@ from io import BytesIO
 from optimum.intel.openvino.modeling_diffusion import OVStableDiffusionPipeline
 from PIL import Image
 
+
 class Txt2Img:
     def __init__(self):
         """Initialize the Txt2Img class by loading the pipeline."""
@@ -21,10 +22,10 @@ class Txt2Img:
     def generate_image(self, prompt: str) -> bytes:
         """
         Generate an image from the given text prompt using the pipeline.
-        
+
         Args:
             prompt (str): The text prompt to generate an image for.
-            
+
         Returns:
             bytes: Binary image data in PNG format.
         """
