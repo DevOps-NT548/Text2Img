@@ -21,7 +21,7 @@ export default function Navbar() {
 
     return (
         <nav className="flex flex-col min-h-screen bg-neutral-50 w-1/4 drop-shadow-xl">
-            <h1 className="m-4 text-sky-500">Group28</h1>
+            <h1 className="m-4 text-sky-500">Group20</h1>
             <ul className="h-full">
                 <li className="hover:bg-sky-50 p-4 text-lg font-semibold"><Link href="/">Home</Link></li>
                 {loggedIn ? <>

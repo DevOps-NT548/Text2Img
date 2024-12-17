@@ -23,15 +23,11 @@ bucket_name = settings.STORAGE_BUCKET
 avatar_folder = 'AVATARs'
 default_path = 'https://storage.googleapis.com/img_bucket04/AVATARs'
 
-print(credential_json)
-
 try:
-    # Initialize the storage client using the service account JSON
     storage_client = storage.Client.from_service_account_json(credential_json)
     bucket = storage_client.bucket(bucket_name)
-    print("vao duoc bucket")
+    print("Successfully accessed the bucket")
 except Exception as e:
-    # Handle the error with additional context
     print(f"Failed to access the bucket: {e}")
 
 
