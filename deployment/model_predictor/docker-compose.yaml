@@ -27,7 +27,7 @@ services:
       context: ../../
       dockerfile: deployment/model_predictor/Backend_Dockerfile
     ports:
-      - "30001:30000"
+      - "8001:8000"
     env_file:
       - .env
     environment:

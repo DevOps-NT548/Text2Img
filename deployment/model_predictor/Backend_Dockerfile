@@ -20,7 +20,7 @@ COPY namsee_key.json /app/
 
 WORKDIR /app/Backend
 
-EXPOSE 30000
+EXPOSE 8000
 
 # Use absolute path to setup.sh
 CMD ["/bin/bash", "/app/Backend/setup.sh"]
