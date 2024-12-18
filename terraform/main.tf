@@ -5,7 +5,7 @@ terraform {
       version = "4.80.0" // Provider version
     }
   }
-  required_version = "1.10.2" // Terraform version
+  required_version = "1.10.3" // Terraform version
 }
 
 provider "google" {
