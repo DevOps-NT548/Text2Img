@@ -1,51 +1,64 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-frontend
-  labels:
-    app: {{ .Release.Name }}-frontend
-  namespace: model-serving
+  name: txt2img-frontend
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-frontend
+      app: txt2img-frontend
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-frontend
+        app: txt2img-frontend
     spec:
       containers:
-        - name: {{ .Release.Name }}-frontend
-          image: "{{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}" 
-          imagePullPolicy: {{ .Values.frontend.image.pullPolicy }}
+        - name: frontend
+          image: {{ .Values.image.repository }}/txt2img_frontend:{{ .Values.image.tag }}
           ports:
-            - containerPort: 3000
+            - containerPort: {{ .Values.service.frontendPort }}
           env:
+            - name: NEXT_PUBLIC_BACKEND_URL
+              value: {{ .Values.env.NEXT_PUBLIC_BACKEND_URL }}
             - name: NEXT_PUBLIC_CREDENTIAL_JSON_FILE_NAME
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_CREDENTIAL_JSON_FILE_NAME }}
+              value: {{ .Values.env.CREDENTIAL_JSON_FILE_NAME }}
             - name: NEXT_PUBLIC_STORAGE_BUCKET_NAME
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_STORAGE_BUCKET_NAME }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: STORAGE_BUCKET_NAME
             - name: NEXT_PUBLIC_SECRET_KEY
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_SECRET_KEY }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: SECRET_KEY
             - name: NEXT_PUBLIC_DATABASE_ENGINE
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_DATABASE_ENGINE }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_ENGINE
             - name: NEXT_PUBLIC_DATABASE_NAME
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_DATABASE_NAME }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_NAME
             - name: NEXT_PUBLIC_DATABASE_USER
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_DATABASE_USER }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_USER
             - name: NEXT_PUBLIC_DATABASE_PASSWORD
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_DATABASE_PASSWORD }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: DATABASE_PASSWORD
             - name: NEXT_PUBLIC_DATABASE_HOST
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_DATABASE_HOST }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_HOST
             - name: NEXT_PUBLIC_DATABASE_PORT
-              value: {{ .Values.frontend.env.NEXT_PUBLIC_DATABASE_PORT }}
-          volumeMounts:
-            - name: credential-json
-              mountPath: /app/namsee_key.json
-              subPath: namsee_key.json
-      volumes:
-        - name: credential-json
-          configMap:
-            name: namsee-key-config
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_PORT

@@ -1,34 +1,21 @@
 replicaCount: 2
 
 image:
-  repository: kevvn/txt2img
-  tag: latest
+  repository: kevvn
+  tag: 0.0.1
   pullPolicy: Always
 
 service:
   type: ClusterIP
-  port: 30000
+  frontendPort: 3000
+  backendPort: 8000
 
 env:
   CREDENTIAL_JSON_FILE_NAME: /app/namsee_key.json
-  STORAGE_BUCKET_NAME: ${STORAGE_BUCKET_NAME}
-  SECRET_KEY: ${SECRET_KEY}
-  DATABASE_ENGINE: ${DATABASE_ENGINE}
-  DATABASE_NAME: ${DATABASE_NAME}
-  DATABASE_USER: ${DATABASE_USER} 
-  DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-  DATABASE_HOST: ${DATABASE_HOST}
-  DATABASE_PORT: ${DATABASE_PORT}
+  NEXT_PUBLIC_BACKEND_URL: http://txt2img-backend:8000
 
-volumes:
-  - name: credential-json
-    mountPath: /app/namsee_key.json
-    subPath: namsee_key.json
-    configMap:
-      name: namsee-key-config
+secret:
+  name: txt2img-secret
 
-# configMap:
-#   name: namsee-key-config
-#   data:
-#     namsee_key.json
-      
+configMap:
+  name: txt2img-config

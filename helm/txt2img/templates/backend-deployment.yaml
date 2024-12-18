@@ -1,52 +1,70 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Release.Name }}-backend
-  labels:
-    app: {{ .Release.Name }}-backend
-  namespace: model-serving
+  name: txt2img-backend
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Release.Name }}-backend
+      app: txt2img-backend
   template:
     metadata:
       labels:
-        app: {{ .Release.Name }}-backend
+        app: txt2img-backend
     spec:
       containers:
-        - name: {{ .Release.Name }}-backend
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+        - name: backend
+          image: {{ .Values.image.repository }}/txt2img_backend:{{ .Values.image.tag }}
           ports:
-            - containerPort: 30000
+            - containerPort: {{ .Values.service.backendPort }}
           env:
             - name: CREDENTIAL_JSON_FILE_NAME
               value: {{ .Values.env.CREDENTIAL_JSON_FILE_NAME }}
             - name: STORAGE_BUCKET_NAME
-              value: {{ .Values.env.STORAGE_BUCKET_NAME }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: STORAGE_BUCKET_NAME
             - name: SECRET_KEY
-              value: {{ .Values.env.SECRET_KEY }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: SECRET_KEY
             - name: DATABASE_ENGINE
-              value: {{ .Values.env.DATABASE_ENGINE }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_ENGINE
             - name: DATABASE_NAME
-              value: {{ .Values.env.DATABASE_NAME }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_NAME
             - name: DATABASE_USER
-              value: {{ .Values.env.DATABASE_USER }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_USER
             - name: DATABASE_PASSWORD
-              value: {{ .Values.env.DATABASE_PASSWORD }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.secret.name }}
+                  key: DATABASE_PASSWORD
             - name: DATABASE_HOST
-              value: {{ .Values.env.DATABASE_HOST }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_HOST
             - name: DATABASE_PORT
-              value: {{ .Values.env.DATABASE_PORT }}
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ .Values.configMap.name }}
+                  key: DATABASE_PORT
           volumeMounts:
-            - name: credential-json
+            - name: namsee-key-volume
               mountPath: /app/namsee_key.json
               subPath: namsee_key.json
       volumes:
-        - name: credential-json
-          configMap:
-            name: namsee-key-config
-
-
+        - name: namsee-key-volume
+          secret:
+            secretName: {{ .Values.secret.name }}

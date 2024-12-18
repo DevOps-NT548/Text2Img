@@ -2,10 +2,10 @@
 // which can be accessed by var.project_id
 variable "project_id" {
   description = "The project ID to host the cluster in"
-  default     = "group20"
+  default     = "linen-walker-444306-k9"
 }
 
 variable "region" {
   description = "The region the cluster in"
-  default     = "europe-west4-a"
+  default     = "asia-southeast1-a"
 }
