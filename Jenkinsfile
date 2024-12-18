@@ -9,7 +9,7 @@ pipeline {
     }
 
     environment{
-        registry = 'quochungtran/classify_disaster_text'
+        registry = 'kevvn/txt2img'
         registryCredential = 'dockerhub'      
     }
 

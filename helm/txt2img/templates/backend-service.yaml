@@ -7,8 +7,9 @@ metadata:
   namespace: model-serving
 spec:
   type: {{ .Values.service.type }}
-  ports:
-    - port: {{ .Values.service.port }}
-      targetPort: 30000
   selector:
-    app: {{ .Release.Name }}-backend
+    app: txt2img-backend
+  ports:
+    - protocol: TCP
+      port: {{ .Values.service.backendPort }}
+      targetPort: {{ .Values.service.backendPort }}
