@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: txt2img-backend
+  namespace: model-serving
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -13,58 +14,13 @@ spec:
         app: txt2img-backend
     spec:
       containers:
-        - name: backend
-          image: {{ .Values.image.repository }}/txt2img_backend:{{ .Values.image.tag }}
-          ports:
-            - containerPort: {{ .Values.service.backendPort }}
-          env:
-            - name: CREDENTIAL_JSON_FILE_NAME
-              value: {{ .Values.env.CREDENTIAL_JSON_FILE_NAME }}
-            - name: STORAGE_BUCKET_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: STORAGE_BUCKET_NAME
-            - name: SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: SECRET_KEY
-            - name: DATABASE_ENGINE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_ENGINE
-            - name: DATABASE_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_NAME
-            - name: DATABASE_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_USER
-            - name: DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: DATABASE_PASSWORD
-            - name: DATABASE_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_HOST
-            - name: DATABASE_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_PORT
-          volumeMounts:
-            - name: namsee-key-volume
-              mountPath: /app/namsee_key.json
-              subPath: namsee_key.json
-      volumes:
-        - name: namsee-key-volume
-          secret:
-            secretName: {{ .Values.secret.name }}
+      - name: backend
+        image: {{ .Values.image.repository }}/txt2img_backend:{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.service.backendPort }}
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 18081
+          initialDelaySeconds: 30
+          periodSeconds: 5
