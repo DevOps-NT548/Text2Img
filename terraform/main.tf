@@ -11,7 +11,7 @@ terraform {
 provider "google" {
   project     = var.project_id
   region      = var.region
-  credentials = file("/home/kevvn/Documents/UIT/NT548/Text2Img/namsee_key.json")
+  credentials = file("/home/ming/Documents/namsee_key.json")
 }
 
 // Google Kubernetes Engine

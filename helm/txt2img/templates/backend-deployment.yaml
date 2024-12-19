@@ -18,9 +18,3 @@ spec:
         image: {{ .Values.image.repository }}/txt2img_backend:{{ .Values.image.tag }}
         ports:
         - containerPort: {{ .Values.service.backendPort }}
-        readinessProbe:
-          httpGet:
-            path: /readyz
-            port: 18081
-          initialDelaySeconds: 30
-          periodSeconds: 5
