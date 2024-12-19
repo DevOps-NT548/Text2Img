@@ -38,5 +38,5 @@ jobs:
     - name: Run pre-commit
       run: |
         pre-commit install
-        cd backend
+        cd Backend
         pre-commit run --all-files

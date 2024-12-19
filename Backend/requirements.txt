@@ -12,4 +12,3 @@ fastapi[uvicorn]
 matplotlib
 uvicorn
 cloud-sql-python-connector
-optimum-intel openvino diffusers onnx
