@@ -2,6 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: txt2img-frontend
+  namespace: model-serving
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -13,52 +14,10 @@ spec:
         app: txt2img-frontend
     spec:
       containers:
-        - name: frontend
-          image: {{ .Values.image.repository }}/txt2img_frontend:{{ .Values.image.tag }}
-          ports:
-            - containerPort: {{ .Values.service.frontendPort }}
-          env:
-            - name: NEXT_PUBLIC_BACKEND_URL
-              value: {{ .Values.env.NEXT_PUBLIC_BACKEND_URL }}
-            - name: NEXT_PUBLIC_CREDENTIAL_JSON_FILE_NAME
-              value: {{ .Values.env.CREDENTIAL_JSON_FILE_NAME }}
-            - name: NEXT_PUBLIC_STORAGE_BUCKET_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: STORAGE_BUCKET_NAME
-            - name: NEXT_PUBLIC_SECRET_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: SECRET_KEY
-            - name: NEXT_PUBLIC_DATABASE_ENGINE
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_ENGINE
-            - name: NEXT_PUBLIC_DATABASE_NAME
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_NAME
-            - name: NEXT_PUBLIC_DATABASE_USER
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_USER
-            - name: NEXT_PUBLIC_DATABASE_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.secret.name }}
-                  key: DATABASE_PASSWORD
-            - name: NEXT_PUBLIC_DATABASE_HOST
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_HOST
-            - name: NEXT_PUBLIC_DATABASE_PORT
-              valueFrom:
-                configMapKeyRef:
-                  name: {{ .Values.configMap.name }}
-                  key: DATABASE_PORT
+      - name: frontend
+        image: {{ .Values.image.repository }}/txt2img_frontend:{{ .Values.image.tag }}
+        ports:
+        - containerPort: {{ .Values.service.frontendPort }}
+        env:
+        - name: NEXT_PUBLIC_BACKEND_URL
+          value: {{ .Values.env.NEXT_PUBLIC_BACKEND_URL }}

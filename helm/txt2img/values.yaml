@@ -1,8 +1,8 @@
 replicaCount: 2
 
 image:
-  repository: kevvn
-  tag: 0.0.1
+  repository: liuchangming
+  tag: latest
   pullPolicy: Always
 
 service:
@@ -13,9 +13,6 @@ service:
 env:
   CREDENTIAL_JSON_FILE_NAME: /app/namsee_key.json
   NEXT_PUBLIC_BACKEND_URL: http://txt2img-backend:8000
-
-secret:
-  name: txt2img-secret
 
 configMap:
   name: txt2img-config
