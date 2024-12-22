@@ -34,6 +34,6 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
 
   node_config {
     preemptible  = true
-    machine_type = "e2-standard-4" # 8 CPU and 16 GB Memory
+    machine_type = "n1-standard-8" # 8 CPU and 16 GB Memory
   }
 }
