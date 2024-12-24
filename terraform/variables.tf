@@ -7,5 +7,5 @@ variable "project_id" {
 
 variable "region" {
   description = "The region the cluster in"
-  default     = "asia-southeast1-a"
+  default     = "us-central1-a"
 }

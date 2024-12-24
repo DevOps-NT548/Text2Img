@@ -22,7 +22,6 @@
     - [Install kubectl, kubectx and kubens](#install-kubectl-kubectx-and-kubens)
       - [Deploy nginx ingress controller](#deploy-nginx-ingress-controller)
       - [Deploy model serving service](#deploy-model-serving-service)
-      - [Deploy model tracking service](#deploy-model-tracking-service)
       - [Deploy monitoring service](#deploy-monitoring-service)
   - [CI/CD with Jenkins on GCE](#cicd-with-jenkins-on-gce)
     - [Create the VM instance](#create-the-vm-instance)
@@ -33,7 +32,6 @@
       - [Setup connection GKE to Jenkins](#setup-connection-gke-to-jenkins)
     - [Continuous deployment](#continuous-deployment)
   - [Demo](#demo)
-    - [TODOS](#todos)
          
 
 
@@ -235,26 +233,9 @@ Alternatively, you can utilize the wildcard DNS service provided by *.nip.io, el
 
 ```bash
 sudo nano /etc/hosts
-[INGRESS_IP_ADDRESS] disaster.classify.com
+[INGRESS_IP_ADDRESS] txt2img.com
 ```
 
-##### Deploy model tracking service
-
-Rather than manually accessing the MLFlow server to keep track of experiments and models in local machine, we can facilitate collaboration by sharing artifacts with stakeholders in other locations. This can be achieved by deploying MLFlow on the cloud within the `model-tracking` namespace.
-
-```bash
-cd helm/model_tracking
-kubectl create ns model-tracking
-kubens model-tracking
-helm upgrade --install model-tracking .
-```
-
-- Add the domain name `mlflow.classify.com` of this IP to `/etc/hosts` where the hostnames are mapped to IP addresses. 
-
-```bash
-sudo nano /etc/hosts
-[INGRESS_IP_ADDRESS] mlflow.tracking.com
-```
 
 ##### Deploy monitoring service
 
@@ -411,10 +392,3 @@ Moreover, we've implemented a custom dashboard in Grafana to monitor specific re
 
 In addition to infrastructure monitoring, a model tracking service is provided accessibly via http://mlflow.tracking.com:5001. This platform allows us to efficiently manage and track model artifacts, performance metrics, dataset sizes, and other relevant information, providing valuable insights into model inference processes.
 
-![MLflow](images/mlflow.png)
-
-#### TODOS
-
-- Add new model/experiments, redesign the code base.
-- Apply nginx controller routing to mlflow.
-- Add dashboard monitor model.
