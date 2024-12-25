@@ -16,7 +16,7 @@ spec:
   - host: txt2img.com
     http:
       paths:
-      - path: /(generate|api/.*)
+      - path: /backend
         pathType: Prefix
         backend:
           service:

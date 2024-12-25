@@ -14,7 +14,7 @@ export async function GET(req: NextRequest) {
   const username = usernameCookie.value;
 
   try {
-    const res = await fetch(`${HOST}/user/${username}`, { method: "POST" });
+    const res = await fetch(`${HOST}/backend/user/${username}`, { method: "POST" });
     if (!res.ok) {
       throw new Error("Failed to fetch user data");
     }
@@ -53,7 +53,7 @@ export async function PUT(req: Request) {
       const base64data = buffer.toString('base64');
       body.set("avatar", `data:${avatarFile.type};base64,${base64data}`);
 
-      const res = await fetch(`${HOST}/updateprofile/${username}`, {
+      const res = await fetch(`${HOST}/backend/updateprofile/${username}`, {
         method: "POST",
         body: body,
       });
@@ -67,7 +67,7 @@ export async function PUT(req: Request) {
 
       return NextResponse.json(data);
     } else {
-      const res = await fetch(`${HOST}/updateprofile/${username}`, {
+      const res = await fetch(`${HOST}/backend/updateprofile/${username}`, {
         method: "POST",
         body: body,
       });

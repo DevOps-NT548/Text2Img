@@ -5,5 +5,5 @@ from .views import (
 
 
 urlpatterns = [
-    path("generate", GenerateImage.as_view()),  # translate pdf ...
+    path("backend/generate", GenerateImage.as_view()),  # translate pdf ...
 ]

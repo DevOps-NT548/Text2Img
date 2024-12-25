@@ -10,6 +10,7 @@ const Login = () => {
     const [userData, setUserData] = useState({ username: "", password: "" })
     const router = useRouter();
     const loginUser = () => {
+        console.log("cc")
         fetch('/login/api', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', },

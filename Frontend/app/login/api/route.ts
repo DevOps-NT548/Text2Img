@@ -4,7 +4,8 @@ import { NextResponse } from "next/server";
 
 export async function POST(req: Request) {
     const body = await req.json();
-    const res = await fetch(HOST+'/login', {
+    console.log("di toi duoc day")
+    const res = await fetch(HOST+'/backend/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
