@@ -35,7 +35,7 @@ export default function Home() {
             const formData = new FormData();
             formData.append("prompt", prompt);
 
-            const response = await fetch(HOST + "/generate", {
+            const response = await fetch(HOST+"/generate", {
                 method: "POST",
                 body: formData
             });

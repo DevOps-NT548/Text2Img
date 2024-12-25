@@ -7,9 +7,9 @@ app_local_up:
 
 # build image classifier app
 build_app_image:
-	docker build -f deployment/model_predictor/Backend_Dockerfile -t kevvn/txt2img_backend:0.0.1 .
-	docker build -f deployment/model_predictor/Frontend_Dockerfile -t kevvn/txt2img_frontend:0.0.1 .
+	docker build -f deployment/model_predictor/Backend_Dockerfile -t liuchangming/txt2img_backend .
+	docker build -f deployment/model_predictor/Frontend_Dockerfile -t liuchangming/txt2img_frontend .
 
 register_app_image:
-	docker push kevvn/txt2img_backend:0.0.1
-	docker push kevvn/txt2img_frontend:0.0.1
+	docker push liuchangming/txt2img_backend
+	docker push liuchangming/txt2img_frontend

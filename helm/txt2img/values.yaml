@@ -11,8 +11,17 @@ service:
   backendPort: 8000
 
 env:
-  CREDENTIAL_JSON_FILE_NAME: /app/namsee_key.json
-  NEXT_PUBLIC_BACKEND_URL: http://txt2img-backend:8000
+  CREDENTIAL_JSON_FILE_NAME: "/app/namsee_key.json"
+  NEXT_PUBLIC_BACKEND_URL: "http://txt2img-backend:8000"
+  STORAGE_BUCKET_NAME: "img_bucket04"
+  SECRET_KEY: "example"
+
+  DATABASE_ENGINE: "django.db.backends.postgresql"
+  DATABASE_NAME: "devops"
+  DATABASE_USER: "postgres"
+  DATABASE_PASSWORD: "namsee04@"
+  DATABASE_HOST: "35.185.148.156"
+  DATABASE_PORT: "5432"
 
 configMap:
   name: txt2img-config
