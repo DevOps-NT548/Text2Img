@@ -6,13 +6,13 @@ image:
   pullPolicy: Always
 
 service:
-  type: ClusterIP
+  type: LoadBalancer
   frontendPort: 3000
   backendPort: 8000
 
 env:
   CREDENTIAL_JSON_FILE_NAME: "/app/namsee_key.json"
-  NEXT_PUBLIC_BACKEND_URL: "http://txt2img-backend:8000"
+  NEXT_PUBLIC_BACKEND_URL: "http://34.172.23.84:8000"
   STORAGE_BUCKET_NAME: "img_bucket04"
   SECRET_KEY: "example"
 

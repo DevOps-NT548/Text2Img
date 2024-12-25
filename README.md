@@ -221,6 +221,15 @@ kubectl create ns model-serving
 kubens model-serving
 helm upgrade --install txt2img .
 ```
+After that, run scripts/update_backend_ip_on_k8s.sh 
+
+```bash
+cd scripts
+chmod +x update_backend_ip_on_k8s.sh
+./update_backend_ip_on_k8s.sh
+```
+
+
 
 - Get IP address of nginx-ingress
 ```bash
@@ -235,6 +244,8 @@ Alternatively, you can utilize the wildcard DNS service provided by *.nip.io, el
 sudo nano /etc/hosts
 [INGRESS_IP_ADDRESS] txt2img.com
 ```
+
+
 
 
 ##### Deploy monitoring service
