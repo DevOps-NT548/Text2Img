@@ -221,13 +221,22 @@ kubectl create ns model-serving
 kubens model-serving
 helm upgrade --install txt2img .
 ```
+After that, run scripts/update_backend_ip_on_k8s.sh 
+
+```bash
+cd scripts
+chmod +x update_backend_ip_on_k8s.sh
+./update_backend_ip_on_k8s.sh
+```
+
+
 
 - Get IP address of nginx-ingress
 ```bash
 kubectl get ing
 ```
 
-- Add the domain name `disaster.classify.com` of this IP to `/etc/hosts` where the hostnames are mapped to IP addresses. 
+- Add the domain name `txt2img.com` of this IP to `/etc/hosts` where the hostnames are mapped to IP addresses. 
 
 Alternatively, you can utilize the wildcard DNS service provided by *.nip.io, eliminating the need to manually edit the `/etc/hosts` file. This service allows you to access your service using a domain name based on the IP address. For example, if your IP address is `192.168.1.100`, you can access your service using `192-168-1-100.nip.io`.
 
@@ -235,6 +244,8 @@ Alternatively, you can utilize the wildcard DNS service provided by *.nip.io, el
 sudo nano /etc/hosts
 [INGRESS_IP_ADDRESS] txt2img.com
 ```
+
+
 
 
 ##### Deploy monitoring service

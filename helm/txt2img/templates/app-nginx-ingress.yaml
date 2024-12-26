@@ -16,13 +16,6 @@ spec:
   - host: txt2img.com
     http:
       paths:
-      - path: /(generate|api/.*)
-        pathType: Prefix
-        backend:
-          service:
-            name: {{ .Release.Name }}-backend
-            port:
-              number: {{ .Values.service.backendPort }}
       - path: /
         pathType: Prefix
         backend:

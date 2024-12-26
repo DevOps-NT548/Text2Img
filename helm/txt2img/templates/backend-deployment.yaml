@@ -18,3 +18,8 @@ spec:
         image: {{ .Values.image.repository }}/txt2img_backend:{{ .Values.image.tag }}
         ports:
         - containerPort: {{ .Values.service.backendPort }}
+        envFrom:
+        - configMapRef:
+            name: txt2img-config
+        - secretRef:
+            name: txt2img-secret
