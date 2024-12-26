@@ -245,15 +245,13 @@ sudo nano /etc/hosts
 [INGRESS_IP_ADDRESS] txt2img.com
 ```
 
-
-
-
 ##### Deploy monitoring service
 
 ```bash
 cd helm/grafana-prometheus/kube-prometheus-stack/
 kubectl create ns monitoring
 kubens monitoring
+helm dependcy build
 helm upgrade --install kube-grafana-prometheus .
 ```
 
@@ -299,10 +297,19 @@ Generate and download new key as json file. Remind that we need to keeps this fi
 
 We should update project ID and service_account_file in `ansible/deploy_jenkins/create_compute_instance.yaml`.
 
+- First, create virtual env:
+```bash
+cd ansible
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+chmod 600 secrets/namsee_key.json
+```
+
 - Execute the playbook to create the Compute Engine instance:
 
 ```bash
-cd ansible/playbook_with_jenkins
+cd playbook_with_jenkins
 ansible-playbook create_compute_instance.yaml
 ```
 ![instance-for-jenkins](images/instance-for-jenkins.png)

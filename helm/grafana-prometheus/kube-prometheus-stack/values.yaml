@@ -337,7 +337,7 @@ alertmanager:
     receivers:
     - name: discord
       discord_configs:
-      - webhook_url: https://discord.com/api/webhooks/1217959349876691046/MYK-uVJY8TU-ZXm7nFIl7-z-PoGDNT_Y7VoQ1qJEp_1Ot2naTVdM6GU8jSGDuYQchG88
+      - webhook_url: https://discord.com/api/webhooks/1218865464478924860/yxAnxzXs58f60UQD3_y3r13ld78MWFsC1kXLf1aZLzkeG1lvXNLVeAqr5_BIlaUMtojB
     templates:
     - '/etc/alertmanager/config/*.tmpl'
 
